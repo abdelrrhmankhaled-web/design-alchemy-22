@@ -1,7 +1,5 @@
 import { Articles } from "@/components/site/Articles";
 import { Courses } from "@/components/site/Courses";
-import { Footer } from "@/components/site/Footer";
-import { Header } from "@/components/site/Header";
 import { Hero } from "@/components/site/Hero";
 import { Instructors } from "@/components/site/Instructors";
 import { Newsletter } from "@/components/site/Newsletter";
@@ -13,8 +11,7 @@ import { Workshops } from "@/components/site/Workshops";
 
 const Index = () => {
   return (
-    <main className="min-h-screen bg-background font-arabic" dir="rtl">
-      <Header />
+    <>
       <Hero />
       <Stats />
       <PlacementQuiz />
@@ -25,8 +22,7 @@ const Index = () => {
       <Instructors />
       <Articles />
       <Newsletter />
-      <Footer />
-    </main>
+    </>
   );
 };
 
