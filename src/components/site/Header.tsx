@@ -1,60 +1,89 @@
 import { useState } from "react";
-import { Menu, X, GraduationCap, LogIn } from "lucide-react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Menu, X, GraduationCap, LogIn, LogOut, LayoutDashboard } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { useAuth } from "@/hooks/useAuth";
 
 const NAV_LINKS = [
-  { href: "#", label: "الرئيسية" },
-  { href: "#courses", label: "الدورات" },
-  { href: "#paths", label: "المسارات" },
-  { href: "#about", label: "عنّا" },
+  { to: "/", label: "الرئيسية", end: true },
+  { to: "/courses", label: "الدورات" },
+  { to: "/paths", label: "المسارات" },
+  { to: "/workshops", label: "الورش" },
+  { to: "/instructors", label: "المدربون" },
+  { to: "/blog", label: "المدونة" },
+  { to: "/contact", label: "تواصل معنا" },
 ];
 
 export const Header = () => {
   const [open, setOpen] = useState(false);
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSignOut = async () => {
+    await signOut();
+    navigate("/");
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-lg">
       <div className="container flex h-16 items-center justify-between gap-4">
-        {/* Logo */}
-        <a href="/" className="flex items-center gap-2 font-bold tracking-tight">
+        <Link to="/" className="flex items-center gap-2 font-bold tracking-tight">
           <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-text text-primary-foreground shadow-glow">
             <GraduationCap className="h-5 w-5" />
           </span>
           <span className="text-base sm:text-lg">3LEMNY ACADEMY</span>
-        </a>
+        </Link>
 
-        {/* Desktop nav */}
-        <nav className="hidden items-center gap-8 md:flex">
+        <nav className="hidden items-center gap-6 lg:flex">
           {NAV_LINKS.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              className="text-sm font-medium text-foreground/80 transition-colors hover:text-primary"
+            <NavLink
+              key={link.to}
+              to={link.to}
+              end={link.end}
+              className={({ isActive }) =>
+                `text-sm font-medium transition-colors hover:text-primary ${
+                  isActive ? "text-primary" : "text-foreground/80"
+                }`
+              }
             >
               {link.label}
-            </a>
+            </NavLink>
           ))}
         </nav>
 
-        {/* Desktop actions */}
-        <div className="hidden items-center gap-2 md:flex">
-          <Button variant="ghost" size="sm" className="gap-2">
-            <LogIn className="h-4 w-4" />
-            تسجيل الدخول
-          </Button>
-          <Button
-            size="sm"
-            className="gap-2 rounded-full bg-primary text-primary-foreground shadow-glow transition-transform hover:scale-105 hover:bg-primary/90"
-          >
-            <GraduationCap className="h-4 w-4" />
-            ابدأ التعلم
-          </Button>
+        <div className="hidden items-center gap-2 lg:flex">
+          {user ? (
+            <>
+              <Button variant="ghost" size="sm" className="gap-2" onClick={() => navigate("/dashboard")}>
+                <LayoutDashboard className="h-4 w-4" />
+                لوحتي
+              </Button>
+              <Button variant="outline" size="sm" className="gap-2" onClick={handleSignOut}>
+                <LogOut className="h-4 w-4" />
+                خروج
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button variant="ghost" size="sm" className="gap-2" onClick={() => navigate("/auth")}>
+                <LogIn className="h-4 w-4" />
+                تسجيل الدخول
+              </Button>
+              <Button
+                size="sm"
+                onClick={() => navigate("/auth?mode=signup")}
+                className="gap-2 rounded-full bg-primary text-primary-foreground shadow-glow transition-transform hover:scale-105 hover:bg-primary/90"
+              >
+                <GraduationCap className="h-4 w-4" />
+                ابدأ التعلم
+              </Button>
+            </>
+          )}
         </div>
 
-        {/* Mobile toggle — single state, single button */}
         <Sheet open={open} onOpenChange={setOpen}>
-          <SheetTrigger asChild className="md:hidden">
+          <SheetTrigger asChild className="lg:hidden">
             <Button variant="ghost" size="icon" aria-label={open ? "إغلاق القائمة" : "فتح القائمة"}>
               {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </Button>
@@ -62,24 +91,70 @@ export const Header = () => {
           <SheetContent side="right" className="w-72 border-l border-border bg-background">
             <nav className="mt-10 flex flex-col gap-1">
               {NAV_LINKS.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
+                <NavLink
+                  key={link.to}
+                  to={link.to}
+                  end={link.end}
                   onClick={() => setOpen(false)}
-                  className="rounded-lg px-3 py-3 text-base font-medium text-foreground/90 transition-colors hover:bg-secondary hover:text-primary"
+                  className={({ isActive }) =>
+                    `rounded-lg px-3 py-3 text-base font-medium transition-colors hover:bg-secondary hover:text-primary ${
+                      isActive ? "bg-secondary text-primary" : "text-foreground/90"
+                    }`
+                  }
                 >
                   {link.label}
-                </a>
+                </NavLink>
               ))}
               <div className="mt-6 flex flex-col gap-2">
-                <Button variant="outline" className="w-full justify-center gap-2">
-                  <LogIn className="h-4 w-4" />
-                  تسجيل الدخول
-                </Button>
-                <Button className="w-full justify-center gap-2 rounded-full bg-primary text-primary-foreground shadow-glow hover:bg-primary/90">
-                  <GraduationCap className="h-4 w-4" />
-                  ابدأ التعلم
-                </Button>
+                {user ? (
+                  <>
+                    <Button
+                      variant="outline"
+                      className="w-full justify-center gap-2"
+                      onClick={() => {
+                        setOpen(false);
+                        navigate("/dashboard");
+                      }}
+                    >
+                      <LayoutDashboard className="h-4 w-4" />
+                      لوحتي
+                    </Button>
+                    <Button
+                      className="w-full justify-center gap-2 rounded-full bg-primary text-primary-foreground hover:bg-primary/90"
+                      onClick={() => {
+                        setOpen(false);
+                        handleSignOut();
+                      }}
+                    >
+                      <LogOut className="h-4 w-4" />
+                      تسجيل الخروج
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    <Button
+                      variant="outline"
+                      className="w-full justify-center gap-2"
+                      onClick={() => {
+                        setOpen(false);
+                        navigate("/auth");
+                      }}
+                    >
+                      <LogIn className="h-4 w-4" />
+                      تسجيل الدخول
+                    </Button>
+                    <Button
+                      className="w-full justify-center gap-2 rounded-full bg-primary text-primary-foreground shadow-glow hover:bg-primary/90"
+                      onClick={() => {
+                        setOpen(false);
+                        navigate("/auth?mode=signup");
+                      }}
+                    >
+                      <GraduationCap className="h-4 w-4" />
+                      ابدأ التعلم
+                    </Button>
+                  </>
+                )}
               </div>
             </nav>
           </SheetContent>
