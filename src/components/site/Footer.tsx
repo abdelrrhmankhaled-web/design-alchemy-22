@@ -30,11 +30,8 @@ export const Footer = () => {
         <div className="grid gap-10 md:grid-cols-[1.4fr_repeat(3,1fr)]">
           {/* Brand */}
           <div className="space-y-4">
-            <a href="/" className="flex items-center gap-2 font-bold">
-              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-text text-primary-foreground shadow-glow">
-                <GraduationCap className="h-5 w-5" />
-              </span>
-              <span className="text-base">3LEMNY ACADEMY</span>
+            <a href="/" className="flex items-center">
+              <img src={logo} alt="3LEMNY ACADEMY" className="h-14 sm:h-16 w-auto object-contain" />
             </a>
             <p className="max-w-xs text-sm text-muted-foreground">
               المنصة الأولى للتعلم المهني باللغة العربية — كورسات عملية ومسارات مصممة لسوق العمل.
