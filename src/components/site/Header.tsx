@@ -27,7 +27,7 @@ export const Header = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-lg">
+    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background">
       <div className="container flex h-24 items-center justify-between gap-4 sm:h-28 lg:h-32">
         <Link to="/" className="flex items-center shrink-0">
           <img src={logo} alt="3LEMNY ACADEMY" className="h-20 sm:h-24 md:h-28 lg:h-32 xl:h-36 w-auto object-contain" />
