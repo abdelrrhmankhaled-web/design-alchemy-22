@@ -4,6 +4,7 @@ import { Menu, X, GraduationCap, LogIn, LogOut, LayoutDashboard } from "lucide-r
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useAuth } from "@/hooks/useAuth";
+import logo from "@/assets/logo.png";
 
 const NAV_LINKS = [
   { to: "/", label: "الرئيسية", end: true },
