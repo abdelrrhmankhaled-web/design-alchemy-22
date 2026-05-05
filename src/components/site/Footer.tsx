@@ -31,7 +31,7 @@ export const Footer = () => {
           {/* Brand */}
           <div className="space-y-4">
             <a href="/" className="flex items-center">
-              <img src={logo} alt="3LEMNY ACADEMY" className="h-14 sm:h-16 w-auto object-contain" />
+              <img src={logo} alt="3LEMNY ACADEMY" className="h-12 sm:h-14 md:h-16 lg:h-20 w-auto object-contain" />
             </a>
             <p className="max-w-xs text-sm text-muted-foreground">
               المنصة الأولى للتعلم المهني باللغة العربية — كورسات عملية ومسارات مصممة لسوق العمل.
