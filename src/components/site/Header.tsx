@@ -28,9 +28,9 @@ export const Header = () => {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-lg">
-      <div className="container flex h-16 items-center justify-between gap-4 sm:h-20 lg:h-24">
+      <div className="container flex h-24 items-center justify-between gap-4 sm:h-28 lg:h-32">
         <Link to="/" className="flex items-center shrink-0">
-          <img src={logo} alt="3LEMNY ACADEMY" className="h-10 sm:h-12 md:h-14 lg:h-16 xl:h-20 w-auto object-contain" />
+          <img src={logo} alt="3LEMNY ACADEMY" className="h-20 sm:h-24 md:h-28 lg:h-32 xl:h-36 w-auto object-contain" />
         </Link>
 
         <nav className="hidden items-center gap-6 lg:flex">
