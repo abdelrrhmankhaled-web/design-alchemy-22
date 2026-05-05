@@ -27,10 +27,10 @@ export const Header = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background">
-      <div className="container flex h-24 items-center justify-between gap-4 sm:h-28 lg:h-32">
+    <header className="sticky top-0 z-50 w-full border-b border-border/30 bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/80">
+      <div className="container flex h-20 items-center justify-between gap-4 sm:h-24">
         <Link to="/" className="flex items-center shrink-0">
-          <img src={logo} alt="3LEMNY ACADEMY" className="h-20 sm:h-24 md:h-28 lg:h-32 xl:h-36 w-auto object-contain" />
+          <img src={logo} alt="3LEMNY ACADEMY" className="h-14 sm:h-16 md:h-20 lg:h-24 w-auto object-contain" />
         </Link>
 
         <nav className="hidden items-center gap-6 lg:flex">
