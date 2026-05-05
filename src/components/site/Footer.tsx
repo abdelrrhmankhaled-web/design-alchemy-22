@@ -1,4 +1,5 @@
-import { Facebook, GraduationCap, Instagram, Linkedin, Youtube } from "lucide-react";
+import { Facebook, Instagram, Linkedin, Youtube } from "lucide-react";
+import logo from "@/assets/logo.png";
 
 const COLUMNS = [
   {
