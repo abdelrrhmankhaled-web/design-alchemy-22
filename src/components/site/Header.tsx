@@ -4,6 +4,7 @@ import { Menu, X, GraduationCap, LogIn, LogOut, LayoutDashboard } from "lucide-r
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useAuth } from "@/hooks/useAuth";
+import logo from "@/assets/logo.png";
 
 const NAV_LINKS = [
   { to: "/", label: "الرئيسية", end: true },
@@ -29,10 +30,7 @@ export const Header = () => {
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-lg">
       <div className="container flex h-16 items-center justify-between gap-4">
         <Link to="/" className="flex items-center gap-2 font-bold tracking-tight">
-          <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-text text-primary-foreground shadow-glow">
-            <GraduationCap className="h-5 w-5" />
-          </span>
-          <span className="text-base sm:text-lg">3LEMNY ACADEMY</span>
+          <img src={logo} alt="3LEMNY ACADEMY" className="h-10 w-auto" />
         </Link>
 
         <nav className="hidden items-center gap-6 lg:flex">
