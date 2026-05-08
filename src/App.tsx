@@ -15,6 +15,9 @@ import WorkshopsPage from "./pages/WorkshopsPage.tsx";
 import InstructorsPage from "./pages/InstructorsPage.tsx";
 import BlogPage from "./pages/BlogPage.tsx";
 import ContactPage from "./pages/ContactPage.tsx";
+import AssessmentPage from "./pages/AssessmentPage.tsx";
+import CourseDetailPage from "./pages/CourseDetailPage.tsx";
+import BookingPage from "./pages/BookingPage.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -35,6 +38,9 @@ const App = () => (
               <Route path="/instructors" element={<InstructorsPage />} />
               <Route path="/blog" element={<BlogPage />} />
               <Route path="/contact" element={<ContactPage />} />
+              <Route path="/assessment" element={<AssessmentPage />} />
+              <Route path="/course/:slug" element={<CourseDetailPage />} />
+              <Route path="/booking" element={<BookingPage />} />
             </Route>
             <Route path="/auth" element={<Auth />} />
             <Route
