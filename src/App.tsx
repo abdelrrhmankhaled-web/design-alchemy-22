@@ -19,6 +19,7 @@ import AssessmentPage from "./pages/AssessmentPage.tsx";
 import CourseDetailPage from "./pages/CourseDetailPage.tsx";
 import BookingPage from "./pages/BookingPage.tsx";
 import NotFound from "./pages/NotFound.tsx";
+import { Analytics } from "@vercel/analytics/react";
 
 const queryClient = new QueryClient();
 
@@ -55,6 +56,7 @@ const App = () => (
           </Routes>
         </AuthProvider>
       </BrowserRouter>
+      <Analytics />
     </TooltipProvider>
   </QueryClientProvider>
 );
