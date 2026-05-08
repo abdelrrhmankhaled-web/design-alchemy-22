@@ -8,60 +8,60 @@
 
 @layer base {
   :root {
-    /* Dark gold-accent theme */
-    --background: 240 22% 5%;
-    --foreground: 40 27% 92%;
+    /* Dark green-tinted theme (default) */
+    --background: 150 18% 4%;
+    --foreground: 0 0% 98%;
 
-    --card: 240 17% 9%;
-    --card-foreground: 40 27% 92%;
+    --card: 150 14% 7%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 240 17% 9%;
-    --popover-foreground: 40 27% 92%;
+    --popover: 150 14% 7%;
+    --popover-foreground: 0 0% 98%;
 
-    /* Gold primary */
-    --primary: 43 51% 54%;
-    --primary-foreground: 240 22% 5%;
-    --primary-glow: 38 81% 52%;
+    /* Neon green primary */
+    --primary: 155 85% 55%;
+    --primary-foreground: 150 30% 8%;
+    --primary-glow: 150 90% 70%;
 
-    --secondary: 240 28% 14%;
-    --secondary-foreground: 40 27% 92%;
+    --secondary: 150 12% 12%;
+    --secondary-foreground: 0 0% 98%;
 
-    --muted: 240 17% 12%;
-    --muted-foreground: 240 7% 64%;
+    --muted: 150 10% 14%;
+    --muted-foreground: 0 0% 75%;
 
-    --accent: 38 81% 52%;
-    --accent-foreground: 240 22% 5%;
+    --accent: 155 85% 55%;
+    --accent-foreground: 150 30% 8%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 240 17% 16%;
-    --input: 240 17% 16%;
-    --ring: 43 51% 54%;
+    --border: 150 10% 16%;
+    --input: 150 10% 16%;
+    --ring: 155 85% 55%;
 
-    --radius: 0.75rem;
+    --radius: 1rem;
 
     /* Gradients */
-    --gradient-text: linear-gradient(135deg, hsl(43 51% 54%), hsl(38 81% 52%));
-    --gradient-hero: radial-gradient(ellipse 80% 60% at 100% 30%, hsl(43 51% 54% / 0.18), transparent 60%);
-    --gradient-card: linear-gradient(180deg, hsl(240 17% 11%), hsl(240 22% 6%));
+    --gradient-text: linear-gradient(135deg, hsl(155 85% 55%), hsl(150 90% 70%));
+    --gradient-hero: radial-gradient(ellipse 80% 60% at 100% 30%, hsl(155 85% 55% / 0.18), transparent 60%);
+    --gradient-card: linear-gradient(180deg, hsl(150 14% 9%), hsl(150 16% 5%));
 
     /* Shadows / glow */
-    --shadow-glow: 0 0 40px hsl(43 51% 54% / 0.35);
-    --shadow-glow-lg: 0 0 80px hsl(43 51% 54% / 0.45);
+    --shadow-glow: 0 0 40px hsl(155 85% 55% / 0.35);
+    --shadow-glow-lg: 0 0 80px hsl(155 85% 55% / 0.45);
     --shadow-card: 0 20px 60px -20px hsl(0 0% 0% / 0.6);
 
     /* Transitions */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
-    --sidebar-background: 240 17% 9%;
-    --sidebar-foreground: 40 27% 88%;
-    --sidebar-primary: 43 51% 54%;
-    --sidebar-primary-foreground: 240 22% 5%;
-    --sidebar-accent: 240 17% 12%;
-    --sidebar-accent-foreground: 40 27% 92%;
-    --sidebar-border: 240 17% 16%;
-    --sidebar-ring: 43 51% 54%;
+    --sidebar-background: 150 14% 7%;
+    --sidebar-foreground: 0 0% 90%;
+    --sidebar-primary: 155 85% 55%;
+    --sidebar-primary-foreground: 150 30% 8%;
+    --sidebar-accent: 150 10% 14%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 150 10% 16%;
+    --sidebar-ring: 155 85% 55%;
   }
 }
 
@@ -71,11 +71,7 @@
   }
 
   html {
-    font-family: "IBM Plex Sans Arabic", "Cairo", system-ui, -apple-system, sans-serif;
-  }
-
-  h1, h2, h3, h4, h5, h6 {
-    font-family: "Tajawal", "Cairo", system-ui, sans-serif;
+    font-family: "Cairo", system-ui, -apple-system, sans-serif;
   }
 
   body {

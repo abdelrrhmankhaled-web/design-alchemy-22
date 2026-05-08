@@ -1,99 +1,142 @@
-## نظرة عامة
 
-ده تحديث كبير يشمل: صفحات جديدة (اختبار تحديد المستوى، صفحة الدورة الداخلية، صفحة الحجز)، تحديث محتوى الدورات والورش، تعديلات تصميم شاملة، وإضافة filters وتفاصيل.
+# الخطة: نسخة محسّنة من Hero Section لـ 3lemny Academy
 
-## ٢. الدورات (10 دورات + filters)
+## 🎯 الهدف
+بناء نسخة محسّنة من قسم البطل (Hero) بنفس هوية موقع 3lemny Academy البصرية (أخضر نيون على خلفية داكنة، RTL عربي، grid pattern في الخلفية)، مع إصلاح كل المشاكل اللي اتحددت في الريفيو.
 
-تحديث `src/components/site/Courses.tsx`:
+---
 
-- مصفوفة الدورات الـ 10 بالأسعار بـ USD والـ slug والكاتيجوري
-- Filter tabs: الكل | لغات | تصميم | تسويق | طبية | إعلام
-- Grid 3/2/1، gap 24px
-- كل كارت: thumbnail 16:9 (gradient placeholder حسب الكاتيجوري) + عنوان + سعر + CTA "سجل الآن" يربط بـ `/course/{slug}`
-- Hover: translate-y-1 + gold glow
+## 🎨 Design System (هيتحط في `src/index.css` و `tailwind.config.ts`)
 
-## ٣. صفحة الدورة `/course/:slug`
+### الألوان (HSL tokens)
+- `--background`: أسود مائل للأخضر `150 15% 4%`
+- `--foreground`: أبيض ناصع `0 0% 98%`
+- `--primary` (الأخضر النيون المميز): `155 85% 55%`
+- `--primary-glow`: نسخة فاتحة للـ glow effects
+- `--muted-foreground`: رمادي فاتح بكونتراست أعلى من الأصلي (`0 0% 75%` بدل الرمادي الباهت)
+- `--card`: `150 12% 8%` للكروت العائمة
+- `--border`: `150 10% 15%`
 
-`src/pages/CourseDetailPage.tsx` جديدة + route في `App.tsx`:
+### الـ Gradients & Effects
+- `--gradient-hero`: radial gradient من الأخضر النيون من اليسار
+- `--gradient-text`: linear gradient للكلمات المميزة
+- `--shadow-glow`: green glow للـ CTAs والكروت
+- `--grid-pattern`: SVG grid background خفيف
 
-- Hero مع breadcrumb + عنوان + مدرب + rating + مدة + مستوى
-- Sticky sidebar فيه السعر، CTA "احجز مقعدك الآن" يروح `/booking?course={slug}`، features list
-- "عن الدورة" + "ماذا ستتعلم" بـ checkmarks
-- Accordion للمراحل (Radix Accordion موجود)
-- بطاقة المدرب
-- Reviews (placeholder)
-- CTA نهائي
-- بيانات الدورات في ملف مشترك `src/data/courses.ts` (title, slug, price, description, instructor, modules[])
+### Typography
+- خط عربي حديث: **Cairo** أو **Tajawal** من Google Fonts (الموقع الأصلي بيستخدم خط مشابه)
+- أحجام: `text-6xl md:text-7xl` للعنوان الرئيسي بـ `tracking-tight` و `leading-tight`
 
-## ٤. صفحة الحجز `/booking`
+---
 
-`src/pages/BookingPage.tsx` جديدة:
+## 📁 الملفات اللي هتتعدّل/تتعمل
 
-- Form بـ react-hook-form + zod validation:
-الاسم، الهاتف، الإيميل، الدورة (pre-filled من query string)، المستوى، كيف عرفت عنا، ملاحظات، checkboxes
-- CTA "تأكيد الحجز" gold
-- Success state بدل الفورم بعد submit + WhatsApp CTA
-- بدون backend دلوقتي — حفظ محلي/عرض success فقط
+### 1. `src/index.css` — تحديث كامل
+- استبدال الـ design tokens بالـ palette الداكنة الخضرا
+- إضافة `dir="rtl"` styles
+- إضافة الـ grid background pattern
+- إضافة keyframes للـ animations (fade-in, glow-pulse, float)
+- استيراد خط Cairo من Google Fonts
 
-## ٥. اختبار تحديد المستوى `/assessment`
+### 2. `tailwind.config.ts` — توسيع
+- إضافة `fontFamily.arabic`
+- إضافة `boxShadow.glow` و `boxShadow.glow-lg`
+- إضافة `backgroundImage` للـ gradients والـ grid
+- إضافة animations جديدة (fade-in-up, float, pulse-glow)
 
-`src/pages/AssessmentPage.tsx` جديدة:
+### 3. `index.html` — تعديل
+- إضافة `lang="ar"` و `dir="rtl"` على الـ `<html>`
+- preconnect لـ Google Fonts
 
-- 10 أسئلة (mock) بـ 4 خيارات لكل سؤال، كل خيار له score لمجال معين
-- State: currentQuestion, answers
-- Progress bar gold + nav circles لكل سؤال (filled/outlined/gray)
-- Card السؤال: 4 خيارات كـ buttons، selected → gold bg
-- زرار "التالي" / "عرض النتيجة"
-- صفحة النتيجة: مستوى (مبتدئ/متوسط/متقدم) محسوب من المجموع، توصية دورة (gold border)، 2-3 دورات ثانوية، أزرار إعادة + share
+### 4. `src/pages/Index.tsx` — استبدال كامل
+الصفحة هتحتوي على:
+- `<Header />`
+- `<Hero />`
 
-## ٦. تحديث `PlacementQuiz.tsx` (السكشن في الهوم)
+### 5. `src/components/site/Header.tsx` — جديد
+**إصلاح بَج التنقل الأصلي** (الأيقونتين المتداخلتين):
+- Logo "3LEMNY ACADEMY" يمين (في RTL = البداية البصرية)
+- Nav links في النص (الرئيسية، الدورات، المسارات، عنّا)
+- Buttons "تسجيل الدخول" + "ابدأ التعلم" (primary glow) شمال
+- على الموبايل: زر واحد فقط (☰) يتحول لـ (✕) بـ state واحد — **مش أيقونتين منفصلتين**
+- استخدام مكون `Sheet` من shadcn للقائمة الجانبية على الموبايل
 
-- استبدال أيقونة Compass بـ SVG dائري gold 88px فيه target/check (lucide `Target` أو `CircleCheck`)
-- background دائرة `#12121a` مع gold accent
-- CTA "اختبر مستواك" → `Link` لـ `/assessment`
+### 6. `src/components/site/Hero.tsx` — جديد
+**إصلاحات وتحسينات:**
 
-## ٧. الورش `Workshops.tsx`
+**أ) العنوان الرئيسي:**
+- `max-w-3xl` (مش `max-w-full`) عشان يبقى مقروء على الديسكتوب
+- مفيش `&nbsp;` يدوية — leading-tight و word-spacing طبيعي
+- "تعلّم المهارات اللي **تصنع مستقبلك** المهني" — الجزء الأوسط بـ `bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent`
 
-تحديث المحتوى لـ 3 ورش بالعناوين والأوصاف الجديدة:
+**ب) Badge فوق العنوان:**
+- "⚡ المنصة الأولى للتعلم المهني باللغة العربية" داخل pill بـ border خفيف وخلفية شبه شفافة
 
-- "فن تحويل الزائر إلى مشتري"
-- "الإعلانات التي تبيع وحدها"
-- "كلمات تصنع مبيعات"
-- 3 أعمدة، badge gold "ورشة عمل"، CTA "سجل الآن" يظهر on hover، السعر بـ $
+**ج) النص الوصفي:**
+- `text-foreground/80` بدل الرمادي الباهت — كونتراست أعلى يطابق WCAG AA
 
-## ٨. الـ Routes
+**د) قائمة المميزات (3 نقاط):**
+- بأيقونات ✓ خضرا في دوائر صغيرة بدل bullets
 
-تحديث `App.tsx` بإضافة:
+**هـ) الـ CTAs:**
+- "ابدأ التعلم" — primary بـ glow shadow + hover scale
+- "تصفح الدورات" — outline بـ hover خفيف
 
-- `/assessment` → AssessmentPage
-- `/course/:slug` → CourseDetailPage
-- `/booking` → BookingPage
-كلهم داخل `SiteLayout`.
+**و) Social proof:**
+- نجوم 4.8 + "12.5K+ طالب مسجّل" + شعارات الشركات (AE, RH, SK, MA) كـ badges مرتبة بدل النص العشوائي "MASKRHAE" — placeholders شغالة لحد ما تتحط شعارات حقيقية
 
-## ملاحظات فنية
+**ز) الـ Visual side (يسار في الـ RTL = شمال بصرياً):**
+- Card رئيسي للـ "احتراف الإعلانات على Meta" مع:
+  - Header: أيقونة + اسم الكورس + "أحمد السيد"
+  - Progress bar 72% بـ gradient أخضر
+  - Checklist للدروس (✓ خضرا للمكتمل، ⚪ رمادي للباقي)
+- Card عائم صغير "نتيجة الاختبار 90/100" — **مرتبط بصرياً بالـ container** عبر:
+  - `absolute` بـ `-top-6 -left-6` (داخل نفس الـ relative wrapper)
+  - line/connector خفيف اختياري
+- Card عائم تحتيه "🏆 شهادة جاهزة | التسويق الرقمي | تحميل الشهادة" — بنفس المبدأ `absolute -bottom-6 -right-6`
+- كل الكروت العائمة بـ `animate-float` (animation خفيف up/down)
 
-- العملة USD في كل المكونات (Courses, Workshops, CourseDetail, Booking)
-- استخدام semantic tokens فقط (gold = `primary`)، مفيش hex مباشر في الـ components
-- RTL سليم عبر logical classes
-- مفيش backend — الفورم وlocalStorage بس
-- Routes الجديدة لازم يكون عندها روابط من الـ Courses cards و PlacementQuiz button و Workshops cards
+**ح) الخلفية:**
+- Grid pattern SVG خفيف
+- Radial gradient أخضر من جنب واحد (يمين في الـ RTL)
+- Subtle noise texture اختياري
 
-## الملفات المتأثرة
+### 7. `src/components/site/CourseProgressCard.tsx` — جديد
+كومبوننت معزول للكارت الرئيسي (يسهّل إعادة الاستخدام).
 
-**جديدة:**
+### 8. `src/components/site/FloatingBadge.tsx` — جديد
+كومبوننت للكروت العائمة الصغيرة (نتيجة الاختبار + الشهادة).
 
-- `src/data/courses.ts`
-- `src/data/assessment.ts`
-- `src/pages/AssessmentPage.tsx`
-- `src/pages/CourseDetailPage.tsx`
-- `src/pages/BookingPage.tsx`
+---
 
-**معدّلة:**
+## ✅ المشاكل المُصلَحة (Checklist)
 
-- `index.html` (fonts)
-- `src/index.css` (tokens + font-family)
-- `tailwind.config.ts` (لو محتاج tweaks)
-- `src/App.tsx` (routes)
-- `src/components/site/Courses.tsx` (10 دورات + filters + USD + روابط)
-- `src/components/site/Workshops.tsx` (3 ورش جديدة)
-- `src/components/site/PlacementQuiz.tsx` (icon + link)
+| المشكلة الأصلية | الحل |
+|---|---|
+| ☰ و ✕ ظاهرين مع بعض في الهيدر | State واحد `isOpen` يبدّل بين الأيقونتين |
+| `&nbsp;` يدوي في العنوان يكسر التباعد | `leading-tight` + `max-w-3xl` طبيعي |
+| العنوان عريض جدًا على الديسكتوب | `max-w-3xl` بدل full width |
+| كونتراست منخفض في النص الثانوي | `text-foreground/80` (يطابق WCAG AA) |
+| "MASKRHAE" نص عشوائي | Badges مرتبة (AE • RH • SK • MA) كـ placeholders واضحة لشعارات شركاء |
+| الكروت العائمة مش مرتبطة بالـ hero | كلها داخل نفس الـ `relative` wrapper بـ `absolute` positioning |
+| مفيش hover states واضحة | كل CTA و card فيه hover transition |
+
+---
+
+## 🎬 Animations
+- `fade-in-up` على عناصر الـ hero بـ stagger delay
+- `float` خفيف على الكروت العائمة (3s ease-in-out infinite)
+- `pulse-glow` على الـ primary CTA
+- `glow` متحرك على الخلفية radial gradient
+
+---
+
+## 📱 Responsive
+- Mobile (<768px): العمود الواحد — Hero text فوق، الـ visual cards تحت
+- Tablet (768-1024px): grid-cols-2 لكن بـ gaps أصغر
+- Desktop (>1024px): Layout كامل بكل العناصر العائمة
+
+---
+
+## ❓ نقطة محتاج رأيك فيها قبل التنفيذ
+هل تحب الـ branding يبقى **3LEMNY ACADEMY** زي الأصلي، ولا تحب نستبدله باسم تاني (مشروعك أنت)؟ لو هتسيبه زي الأصلي تمام، هكمل بنفس الاسم.
