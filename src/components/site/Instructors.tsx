@@ -1,5 +1,5 @@
 import { Quote } from "lucide-react";
-import founderImage from "@/assets/haneen-khalifa-cutout.png";
+import founderImage from "@/assets/haneen-khalifa-dark.jpg";
 
 export const Instructors = () => {
   return (
