@@ -12,6 +12,8 @@ const WORKSHOPS = [
     price: "$29",
     mode: "أونلاين",
     accent: "from-violet-500/30 to-indigo-500/10",
+    image: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1200&q=80",
+    imageAlt: "اجتماع مبيعات وخدمة عملاء",
   },
   {
     title: "الإعلانات التي تبيع وحدها",
@@ -23,6 +25,8 @@ const WORKSHOPS = [
     price: "$39",
     mode: "أونلاين",
     accent: "from-emerald-500/30 to-primary/10",
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
+    imageAlt: "لوحة تحليلات حملة إعلانية رقمية",
   },
   {
     title: "كلمات تصنع مبيعات",
@@ -34,6 +38,8 @@ const WORKSHOPS = [
     price: "$25",
     mode: "أونلاين",
     accent: "from-amber-500/30 to-rose-500/10",
+    image: "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=1200&q=80",
+    imageAlt: "كتابة محتوى بيعي على لابتوب ودفتر ملاحظات",
   },
 ];
 
@@ -51,8 +57,15 @@ export const Workshops = () => {
             key={w.title}
             className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-card transition-all hover:-translate-y-1 hover:border-primary/40 hover:shadow-glow"
           >
-            <div className={`relative aspect-[16/9] bg-gradient-to-br ${w.accent}`}>
-              <span className="absolute right-3 top-3 rounded-md border border-primary/30 bg-background/80 px-2 py-0.5 text-[10px] font-semibold text-primary backdrop-blur">
+            <div className="relative aspect-[16/9] overflow-hidden bg-secondary">
+              <img
+                src={w.image}
+                alt={w.imageAlt}
+                loading="lazy"
+                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-background/20 to-background/10" />
+              <span className="absolute right-3 top-3 z-10 rounded-md border border-primary/30 bg-background/80 px-2 py-0.5 text-[10px] font-semibold text-primary backdrop-blur">
                 ورشة عمل
               </span>
             </div>
