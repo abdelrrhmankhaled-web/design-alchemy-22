@@ -81,6 +81,8 @@ export const COURSES: Course[] = [
     rating: 4.8,
     price: 49,
     accent: "from-sky-500/30 to-indigo-500/10",
+    image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=80",
+    imageAlt: "فصل تعلم لغة إنجليزية",
     shortDescription: "تحدث الإنجليزية بثقة من اليوم الأول مع تدريبات محادثة عملية.",
     description: [
       "دورة مكثفة لتطوير مهارات المحادثة باللغة الإنجليزية بأسلوب طبيعي وعملي.",
@@ -105,6 +107,8 @@ export const COURSES: Course[] = [
     rating: 4.7,
     price: 79,
     accent: "from-blue-500/30 to-cyan-500/10",
+    image: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1200&q=80",
+    imageAlt: "مخططات هندسية على شاشة الكمبيوتر",
     shortDescription: "احترف الرسم الهندسي ثنائي وثلاثي الأبعاد باستخدام AutoCAD.",
     description: [
       "تعلم AutoCAD من الصفر للاحتراف بأسلوب عملي مبسط.",
@@ -129,6 +133,8 @@ export const COURSES: Course[] = [
     rating: 4.9,
     price: 69,
     accent: "from-pink-500/30 to-purple-500/10",
+    image: "https://images.unsplash.com/photo-1561070791-2526d30994b8?auto=format&fit=crop&w=1200&q=80",
+    imageAlt: "مكتب مصمم جرافيك مع لابتوب وأدوات تصميم",
     shortDescription: "احترف Photoshop و Illustrator وصمم هوية بصرية متكاملة.",
     description: [
       "دورة شاملة في التصميم الجرافيكي تأخذك من الأساسيات للاحتراف.",
@@ -153,6 +159,8 @@ export const COURSES: Course[] = [
     rating: 4.8,
     price: 59,
     accent: "from-amber-500/30 to-orange-500/10",
+    image: "https://images.unsplash.com/photo-1611926653458-09294b3142bf?auto=format&fit=crop&w=1200&q=80",
+    imageAlt: "إدارة حملات سوشيال ميديا على الموبايل",
     shortDescription: "ابنِ حضور قوي على السوشيال ميديا وحوّل المتابعين لعملاء.",
     description: [
       "إدارة احترافية لحسابات السوشيال ميديا لكل المنصات الرئيسية.",
@@ -177,6 +185,8 @@ export const COURSES: Course[] = [
     rating: 4.9,
     price: 89,
     accent: "from-rose-500/30 to-orange-500/10",
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
+    imageAlt: "لوحة تحليلات إعلانات رقمية",
     shortDescription: "أتقن إعلانات Meta و TikTok وحقق أعلى ROAS لمتجرك.",
     description: [
       "دورة متقدمة في إعلانات Meta و TikTok للمتاجر والخدمات.",
@@ -201,6 +211,8 @@ export const COURSES: Course[] = [
     rating: 4.9,
     price: 129,
     accent: "from-red-500/30 to-rose-500/10",
+    image: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1200&q=80",
+    imageAlt: "جهاز ليزر طبي في عيادة",
     shortDescription: "احترف جلسات الليزر بأمان واحترافية للأنواع المختلفة.",
     description: [
       "دورة متخصصة لمحترفي العناية بالبشرة والعيادات الطبية.",
@@ -225,6 +237,8 @@ export const COURSES: Course[] = [
     rating: 4.9,
     price: 149,
     accent: "from-emerald-500/30 to-teal-500/10",
+    image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1200&q=80",
+    imageAlt: "جلسة عناية بالبشرة في عيادة طبية",
     shortDescription: "احترف العناية بالبشرة وتقنيات PRP بأحدث البروتوكولات.",
     description: [
       "دورة شاملة في العناية الطبية بالبشرة وتقنية PRP.",
@@ -249,6 +263,8 @@ export const COURSES: Course[] = [
     rating: 4.7,
     price: 69,
     accent: "from-violet-500/30 to-indigo-500/10",
+    image: "https://images.unsplash.com/photo-1492724441997-5dc865305da7?auto=format&fit=crop&w=1200&q=80",
+    imageAlt: "استوديو إعلامي مع كاميرا وميكروفون",
     shortDescription: "ادخل عالم الإعلام من الأبواب الواسعة بمهارات احترافية.",
     description: [
       "دورة شاملة في مهارات الإعلام الحديثة للتقديم والإعداد.",
@@ -273,6 +289,8 @@ export const COURSES: Course[] = [
     rating: 4.8,
     price: 79,
     accent: "from-fuchsia-500/30 to-pink-500/10",
+    image: "https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?auto=format&fit=crop&w=1200&q=80",
+    imageAlt: "صانع محتوى يصور بالموبايل",
     shortDescription: "ابنِ مسيرة كصانع محتوى محترف من الفكرة حتى النشر.",
     description: [
       "تعلم كيف تصنع محتوى احترافي يجذب ويحقق دخل.",
@@ -297,6 +315,8 @@ export const COURSES: Course[] = [
     rating: 4.9,
     price: 99,
     accent: "from-yellow-500/30 to-amber-500/10",
+    image: "https://images.unsplash.com/photo-1452587925148-ce544e77e70d?auto=format&fit=crop&w=1200&q=80",
+    imageAlt: "كاميرا تصوير احترافية",
     shortDescription: "احترف التصوير الفوتوغرافي وقدّم صور تنافس الكبار.",
     description: [
       "دورة شاملة من شراء الكاميرا حتى تسليم الجلسة الاحترافية.",
