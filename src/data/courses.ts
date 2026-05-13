@@ -10,6 +10,8 @@ export type Course = {
   rating: number;
   price: number;
   accent: string;
+  image?: string;
+  imageAlt?: string;
   shortDescription: string;
   description: string[];
   whatYouLearn: string[];
@@ -17,6 +19,14 @@ export type Course = {
   instructor: { name: string; bio: string; initials: string };
   stages: { title: string; duration: string; lessons: string[] }[];
   reviews: { name: string; rating: number; text: string }[];
+};
+
+export const CATEGORY_FALLBACK_IMAGES: Record<string, string> = {
+  languages: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=80",
+  design: "https://images.unsplash.com/photo-1561070791-2526d30994b8?auto=format&fit=crop&w=1200&q=80",
+  marketing: "https://images.unsplash.com/photo-1611926653458-09294b3142bf?auto=format&fit=crop&w=1200&q=80",
+  medical: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1200&q=80",
+  media: "https://images.unsplash.com/photo-1492724441997-5dc865305da7?auto=format&fit=crop&w=1200&q=80",
 };
 
 export const CATEGORIES = [
