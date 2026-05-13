@@ -1,5 +1,5 @@
 import { Quote } from "lucide-react";
-import founderImage from "@/assets/haneen-khalifa.jpg";
+import founderImage from "@/assets/haneen-khalifa-cutout.png";
 
 export const Instructors = () => {
   return (
@@ -40,12 +40,12 @@ export const Instructors = () => {
         <div className="order-1 md:order-2">
           <div className="relative mx-auto max-w-sm md:max-w-md">
             <div className="absolute -inset-2 rounded-3xl bg-gradient-to-br from-primary/20 to-primary/5 blur-2xl" aria-hidden />
-            <div className="relative overflow-hidden rounded-2xl border border-border bg-card shadow-glow">
+            <div className="relative overflow-hidden rounded-2xl border border-border bg-gradient-to-br from-secondary via-card to-background shadow-glow">
               <img
                 src={founderImage}
                 alt="د. حنين خليفة - الشريك المؤسس لعلّمني أكاديمي"
                 loading="lazy"
-                className="aspect-square w-full object-cover"
+                className="aspect-square w-full object-cover object-top"
               />
             </div>
           </div>
