@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Clock, PlayCircle, Users } from "lucide-react";
+import { Clock, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { COURSES, CATEGORIES } from "@/data/courses";
+import { COURSES, CATEGORIES, CATEGORY_FALLBACK_IMAGES } from "@/data/courses";
 
 export const Courses = () => {
   const [filter, setFilter] = useState("all");
@@ -44,11 +44,15 @@ export const Courses = () => {
             className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-card transition-all hover:-translate-y-1 hover:border-primary/40 hover:shadow-glow"
           >
             <Link to={`/course/${course.slug}`} className="contents">
-              <div
-                className={`relative flex aspect-video items-center justify-center bg-gradient-to-br ${course.accent}`}
-              >
-                <PlayCircle className="h-14 w-14 text-foreground/90 transition-transform group-hover:scale-110" />
-                <span className="absolute right-3 top-3 rounded-full bg-background/80 px-2.5 py-1 text-xs font-medium text-foreground backdrop-blur">
+              <div className="relative aspect-video overflow-hidden bg-secondary">
+                <img
+                  src={course.image || CATEGORY_FALLBACK_IMAGES[course.categoryKey]}
+                  alt={course.imageAlt || course.title}
+                  loading="lazy"
+                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-background/20 to-background/10" />
+                <span className="absolute right-3 top-3 z-10 rounded-full bg-background/80 px-2.5 py-1 text-xs font-medium text-foreground backdrop-blur">
                   {course.category}
                 </span>
               </div>
