@@ -1,6 +1,7 @@
 import { Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { toast } from "sonner";
 
 const PERKS = [
   { value: "مجاني", label: "100%" },
@@ -33,7 +34,11 @@ export const Newsletter = () => {
           </div>
 
           <form
-            onSubmit={(e) => e.preventDefault()}
+            onSubmit={(e) => {
+              e.preventDefault();
+              toast.success("تم تسجيل بريدك في النشرة.");
+              e.currentTarget.reset();
+            }}
             className="mx-auto flex max-w-md flex-col gap-3 sm:flex-row"
           >
             <div className="relative flex-1">

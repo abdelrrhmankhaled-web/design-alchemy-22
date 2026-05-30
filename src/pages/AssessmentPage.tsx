@@ -7,7 +7,7 @@ import { COURSES } from "@/data/courses";
 
 type Question = {
   q: string;
-  area: "design" | "marketing" | "media" | "languages" | "general";
+  area: "design" | "marketing" | "content" | "languages" | "general";
   options: { label: string; weight: number }[];
 };
 
@@ -38,7 +38,7 @@ const QUESTIONS: Question[] = [
     options: [
       { label: "التصميم والإبداع", weight: 2 },
       { label: "التسويق والمبيعات", weight: 2 },
-      { label: "الإعلام وصناعة المحتوى", weight: 2 },
+      { label: "المحتوى والتصوير", weight: 2 },
       { label: "اللغات والتواصل", weight: 1 },
     ],
   },
@@ -74,7 +74,7 @@ const QUESTIONS: Question[] = [
   },
   {
     q: "هل تنشئ محتوى للسوشيال ميديا؟",
-    area: "media",
+    area: "content",
     options: [
       { label: "لا", weight: 1 },
       { label: "بشكل عابر", weight: 2 },
@@ -84,7 +84,7 @@ const QUESTIONS: Question[] = [
   },
   {
     q: "ما خبرتك في التصوير؟",
-    area: "media",
+    area: "content",
     options: [
       { label: "صور موبايل عادية", weight: 1 },
       { label: "أعرف الأساسيات", weight: 2 },
@@ -120,12 +120,14 @@ const AssessmentPage = () => {
   const [done, setDone] = useState(false);
 
   const progress = ((step + (done ? 1 : 0)) / QUESTIONS.length) * 100;
+  const firstUnansweredIndex = answers.findIndex((answer) => answer == null);
+  const isComplete = firstUnansweredIndex === -1;
 
   const result = useMemo(() => {
     const totals: Record<string, { score: number; count: number }> = {
       design: { score: 0, count: 0 },
       marketing: { score: 0, count: 0 },
-      media: { score: 0, count: 0 },
+      content: { score: 0, count: 0 },
       languages: { score: 0, count: 0 },
       general: { score: 0, count: 0 },
     };
@@ -140,7 +142,7 @@ const AssessmentPage = () => {
     const ratio = totalScore / maxScore;
     const level = ratio < 0.5 ? "مبتدئ" : ratio < 0.78 ? "متوسط" : "متقدم";
 
-    const breakdown = (["design", "marketing", "media", "languages"] as const).map((key) => {
+    const breakdown = (["design", "marketing", "content", "languages"] as const).map((key) => {
       const t = totals[key];
       const max = QUESTIONS.filter((q) => q.area === key).length * 3;
       const pct = max > 0 ? Math.round((t.score / max) * 100) : 0;
@@ -151,8 +153,8 @@ const AssessmentPage = () => {
             ? "التصميم"
             : key === "marketing"
               ? "التسويق"
-              : key === "media"
-                ? "الإعلام"
+              : key === "content"
+                ? "المحتوى والتصوير"
                 : "اللغات",
         pct,
       };
@@ -163,7 +165,7 @@ const AssessmentPage = () => {
       COURSES.find((c) => {
         if (top.key === "design") return c.categoryKey === "design";
         if (top.key === "marketing") return c.categoryKey === "marketing";
-        if (top.key === "media") return c.categoryKey === "media";
+        if (top.key === "content") return c.categoryKey === "content";
         return c.categoryKey === "languages";
       }) ?? COURSES[0];
 
@@ -180,7 +182,8 @@ const AssessmentPage = () => {
 
   const goNext = () => {
     if (step < QUESTIONS.length - 1) setStep(step + 1);
-    else setDone(true);
+    else if (isComplete) setDone(true);
+    else setStep(firstUnansweredIndex);
   };
 
   const reset = () => {
@@ -363,7 +366,9 @@ const AssessmentPage = () => {
             <button
               key={i}
               onClick={() => setStep(i)}
-              className={`flex h-8 w-8 items-center justify-center rounded-full border text-xs font-semibold transition-all ${
+              disabled={answers[i] == null && i > step}
+              aria-label={`الانتقال إلى السؤال ${i + 1}`}
+              className={`flex h-8 w-8 items-center justify-center rounded-full border text-xs font-semibold transition-all disabled:cursor-not-allowed disabled:opacity-45 ${
                 i === step
                   ? "border-primary bg-primary text-primary-foreground"
                   : answers[i] != null

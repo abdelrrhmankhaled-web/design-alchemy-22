@@ -23,19 +23,19 @@ export type Course = {
 
 export const CATEGORY_FALLBACK_IMAGES: Record<string, string> = {
   languages: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=80",
-  design: "https://images.unsplash.com/photo-1561070791-2526d30994b8?auto=format&fit=crop&w=1200&q=80",
+  design: "https://images.unsplash.com/photo-1558655146-9f40138edfeb?auto=format&fit=crop&w=1200&q=80",
   marketing: "https://images.unsplash.com/photo-1611926653458-09294b3142bf?auto=format&fit=crop&w=1200&q=80",
+  content: "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=1200&q=80",
   medical: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1200&q=80",
-  media: "https://images.unsplash.com/photo-1492724441997-5dc865305da7?auto=format&fit=crop&w=1200&q=80",
 };
 
 export const CATEGORIES = [
   { key: "all", label: "الكل" },
   { key: "languages", label: "لغات" },
+  { key: "content", label: "محتوى وتصوير" },
   { key: "design", label: "تصميم" },
   { key: "marketing", label: "تسويق" },
   { key: "medical", label: "طبية" },
-  { key: "media", label: "إعلام" },
 ];
 
 const baseInstructor = (name: string, initials: string) => ({
@@ -68,7 +68,7 @@ const baseReviews = [
   { name: "محمد حسن", rating: 4, text: "تجربة رائعة، التطبيقات العملية ساعدتني أفهم بسرعة." },
 ];
 
-export const COURSES: Course[] = [
+const ALL_COURSES: Course[] = [
   {
     slug: "english-conversation",
     title: "المحادثة باللغة الإنجليزية",
@@ -97,7 +97,7 @@ export const COURSES: Course[] = [
   },
   {
     slug: "autocad",
-    title: "دورة أوتوكاد",
+    title: "اوتوكاد",
     category: "تصميم",
     categoryKey: "design",
     level: "مبتدئ",
@@ -122,8 +122,34 @@ export const COURSES: Course[] = [
     reviews: baseReviews,
   },
   {
+    slug: "3ds-max",
+    title: "3Ds Max",
+    category: "تصميم",
+    categoryKey: "design",
+    level: "متوسط",
+    duration: "28 ساعة",
+    lessons: 32,
+    students: 980,
+    rating: 4.8,
+    price: 99,
+    accent: "from-cyan-500/30 to-blue-500/10",
+    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80",
+    imageAlt: "تصميم معماري ثلاثي الأبعاد لمنزل حديث",
+    shortDescription: "اتقن النمذجة والإخراج المعماري ثلاثي الأبعاد باستخدام 3Ds Max.",
+    description: [
+      "دورة عملية لتعلم 3Ds Max من أساسيات النمذجة حتى الإخراج النهائي.",
+      "تركز على المشاهد المعمارية، الخامات، الإضاءة، وتجهيز الرندر.",
+      "ستنفذ مشروعًا كاملًا يصلح لإضافته إلى معرض أعمالك.",
+    ],
+    whatYouLearn: ["النمذجة ثلاثية الأبعاد", "الخامات والإضاءة", "إعداد مشاهد معمارية", "إخراج رندر احترافي"],
+    requirements: ["كمبيوتر مناسب للتصميم ثلاثي الأبعاد", "تثبيت 3Ds Max", "معرفة أساسية بالتصميم"],
+    instructor: baseInstructor("Ahmed Saeed", "AS"),
+    stages: baseStages,
+    reviews: baseReviews,
+  },
+  {
     slug: "graphic-design",
-    title: "تصميم جرافيكي",
+    title: "التصميم الجرافيكي",
     category: "تصميم",
     categoryKey: "design",
     level: "مبتدئ",
@@ -133,8 +159,8 @@ export const COURSES: Course[] = [
     rating: 4.9,
     price: 69,
     accent: "from-pink-500/30 to-purple-500/10",
-    image: "https://images.unsplash.com/photo-1561070791-2526d30994b8?auto=format&fit=crop&w=1200&q=80",
-    imageAlt: "مكتب مصمم جرافيك مع لابتوب وأدوات تصميم",
+    image: "https://images.unsplash.com/photo-1558655146-9f40138edfeb?auto=format&fit=crop&w=1200&q=80",
+    imageAlt: "مصمم يعمل على واجهة تطبيق",
     shortDescription: "احترف Photoshop و Illustrator وصمم هوية بصرية متكاملة.",
     description: [
       "دورة شاملة في التصميم الجرافيكي تأخذك من الأساسيات للاحتراف.",
@@ -149,7 +175,7 @@ export const COURSES: Course[] = [
   },
   {
     slug: "social-media",
-    title: "سوشيال ميديا",
+    title: "احتراف السوشيال ميديا",
     category: "تسويق",
     categoryKey: "marketing",
     level: "مبتدئ",
@@ -175,7 +201,7 @@ export const COURSES: Course[] = [
   },
   {
     slug: "paid-ads",
-    title: "الإعلانات الممولة (Meta - TikTok)",
+    title: "ادارة الحملات الاعلانية (Meta - TikTok)",
     category: "تسويق",
     categoryKey: "marketing",
     level: "متوسط",
@@ -226,8 +252,8 @@ export const COURSES: Course[] = [
     reviews: baseReviews,
   },
   {
-    slug: "skincare-prp",
-    title: "سكين كير و PRP",
+    slug: "skincare",
+    title: "العناية بالبشرة",
     category: "طبية",
     categoryKey: "medical",
     level: "متقدم",
@@ -239,49 +265,23 @@ export const COURSES: Course[] = [
     accent: "from-emerald-500/30 to-teal-500/10",
     image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1200&q=80",
     imageAlt: "جلسة عناية بالبشرة في عيادة طبية",
-    shortDescription: "احترف العناية بالبشرة وتقنيات PRP بأحدث البروتوكولات.",
+    shortDescription: "احترف أساسيات العناية بالبشرة وبناء روتين علاجي مناسب لكل حالة.",
     description: [
-      "دورة شاملة في العناية الطبية بالبشرة وتقنية PRP.",
-      "نغطي التشخيص، التحضير، التطبيق، والمتابعة بعد الجلسة.",
+      "دورة شاملة في العناية الطبية والتجميلية بالبشرة.",
+      "نغطي التشخيص، اختيار المنتجات، البروتوكولات، والمتابعة بعد الجلسة.",
       "تطبيق عملي بإشراف طبي متخصص.",
     ],
-    whatYouLearn: ["تحليل أنواع البشرة", "تقنية PRP خطوة بخطوة", "العناية بعد الجلسة", "إدارة العيادة"],
+    whatYouLearn: ["تحليل أنواع البشرة", "بناء روتين عناية مناسب", "العناية بعد الجلسة", "إدارة العيادة"],
     requirements: ["خلفية طبية", "حضور التطبيقات العملية", "التزام بالسلامة"],
     instructor: baseInstructor("Dr. Sara Ibrahim", "SI"),
     stages: baseStages,
     reviews: baseReviews,
   },
   {
-    slug: "media",
-    title: "الإعلام",
-    category: "إعلام",
-    categoryKey: "media",
-    level: "مبتدئ",
-    duration: "24 ساعة",
-    lessons: 30,
-    students: 1240,
-    rating: 4.7,
-    price: 69,
-    accent: "from-violet-500/30 to-indigo-500/10",
-    image: "https://images.unsplash.com/photo-1492724441997-5dc865305da7?auto=format&fit=crop&w=1200&q=80",
-    imageAlt: "استوديو إعلامي مع كاميرا وميكروفون",
-    shortDescription: "ادخل عالم الإعلام من الأبواب الواسعة بمهارات احترافية.",
-    description: [
-      "دورة شاملة في مهارات الإعلام الحديثة للتقديم والإعداد.",
-      "نغطي الستوديو، المايك، الكاميرا، والإعداد الإعلامي.",
-      "تدريب عملي على بيئة استوديو حقيقية.",
-    ],
-    whatYouLearn: ["مهارات التقديم", "إعداد المحتوى الإعلامي", "أمام وخلف الكاميرا", "بناء بيرسونال براند"],
-    requirements: ["ثقة بالنفس", "ميكروفون أساسي", "رغبة حقيقية"],
-    instructor: baseInstructor("Karim Yousef", "KY"),
-    stages: baseStages,
-    reviews: baseReviews,
-  },
-  {
-    slug: "content-creation",
-    title: "صناعة المحتوى",
-    category: "إعلام",
-    categoryKey: "media",
+    slug: "content-writing",
+    title: "كتابة المحتوى",
+    category: "محتوى وتصوير",
+    categoryKey: "content",
     level: "متوسط",
     duration: "28 ساعة",
     lessons: 34,
@@ -291,14 +291,14 @@ export const COURSES: Course[] = [
     accent: "from-fuchsia-500/30 to-pink-500/10",
     image: "https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?auto=format&fit=crop&w=1200&q=80",
     imageAlt: "صانع محتوى يصور بالموبايل",
-    shortDescription: "ابنِ مسيرة كصانع محتوى محترف من الفكرة حتى النشر.",
+    shortDescription: "اكتب محتوى واضح ومقنع يناسب السوشيال ميديا والإعلانات وصفحات البيع.",
     description: [
-      "تعلم كيف تصنع محتوى احترافي يجذب ويحقق دخل.",
-      "نغطي التصوير، المونتاج، السكريبت، والنشر الذكي.",
-      "بناء استراتيجية محتوى تناسب علامتك الشخصية.",
+      "تعلم كتابة محتوى احترافي يبدأ من الفكرة وينتهي بمنشور أو إعلان جاهز للنشر.",
+      "نغطي كتابة السكريبت، الكابتشن، العناوين، وصياغة الرسائل البيعية.",
+      "تطبيقات عملية على محتوى البراندات، الخدمات، والمتاجر.",
     ],
-    whatYouLearn: ["استراتيجية المحتوى", "التصوير والمونتاج", "كتابة السكريبت", "تحقيق الدخل"],
-    requirements: ["موبايل بكاميرا جيدة", "تطبيق مونتاج", "أفكار للبدء"],
+    whatYouLearn: ["كتابة السكريبت", "صياغة الكابتشن", "كتابة إعلانات قصيرة", "بناء تقويم محتوى"],
+    requirements: ["رغبة في الكتابة", "أمثلة محتوى للتطبيق", "ساعة يوميًا للتدريب"],
     instructor: baseInstructor("Lina Mostafa", "LM"),
     stages: baseStages,
     reviews: baseReviews,
@@ -306,8 +306,8 @@ export const COURSES: Course[] = [
   {
     slug: "photography",
     title: "تصوير احترافي",
-    category: "إعلام",
-    categoryKey: "media",
+    category: "محتوى وتصوير",
+    categoryKey: "content",
     level: "متوسط",
     duration: "30 ساعة",
     lessons: 32,
@@ -330,5 +330,22 @@ export const COURSES: Course[] = [
     reviews: baseReviews,
   },
 ];
+
+const COURSE_ORDER = [
+  "english-conversation",
+  "content-writing",
+  "social-media",
+  "graphic-design",
+  "paid-ads",
+  "autocad",
+  "3ds-max",
+  "skincare",
+  "laser",
+  "photography",
+];
+
+export const COURSES: Course[] = COURSE_ORDER.map((slug) => ALL_COURSES.find((course) => course.slug === slug)).filter(
+  (course): course is Course => Boolean(course),
+);
 
 export const getCourseBySlug = (slug: string) => COURSES.find((c) => c.slug === slug);

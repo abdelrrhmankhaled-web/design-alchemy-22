@@ -1,47 +1,7 @@
 import { Calendar, Clock, MapPin } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-
-const WORKSHOPS = [
-  {
-    title: "فن تحويل الزائر إلى مشتري",
-    description:
-      "أسرار خدمة العملاء التي تضاعف مبيعاتك — تعلم كيف تحول كل استفسار إلى عملية بيع.",
-    date: "15 مايو",
-    time: "8:00 م",
-    duration: "ساعتان",
-    price: "$29",
-    mode: "أونلاين",
-    accent: "from-violet-500/30 to-indigo-500/10",
-    image: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1200&q=80",
-    imageAlt: "اجتماع مبيعات وخدمة عملاء",
-  },
-  {
-    title: "الإعلانات التي تبيع وحدها",
-    description:
-      "استراتيجيات الحملات الإعلانية للمتاجر الإلكترونية — من الاستهداف للتتبع لتحقيق أعلى عائد.",
-    date: "22 مايو",
-    time: "9:00 م",
-    duration: "3 ساعات",
-    price: "$39",
-    mode: "أونلاين",
-    accent: "from-emerald-500/30 to-primary/10",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
-    imageAlt: "لوحة تحليلات حملة إعلانية رقمية",
-  },
-  {
-    title: "كلمات تصنع مبيعات",
-    description:
-      "كتابة المحتوى البيعي الذي يرفع معدل التحويل 10 أضعاف — صيغ جاهزة وأمثلة عملية.",
-    date: "29 مايو",
-    time: "8:30 م",
-    duration: "ساعتان",
-    price: "$25",
-    mode: "أونلاين",
-    accent: "from-amber-500/30 to-rose-500/10",
-    image: "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=1200&q=80",
-    imageAlt: "كتابة محتوى بيعي على لابتوب ودفتر ملاحظات",
-  },
-];
+import { WORKSHOPS } from "@/data/workshops";
 
 export const Workshops = () => {
   return (
@@ -92,10 +52,11 @@ export const Workshops = () => {
               <div className="mt-auto flex items-center justify-between border-t border-border/60 pt-3">
                 <span className="text-base font-bold text-primary">{w.price}</span>
                 <Button
+                  asChild
                   size="sm"
                   className="rounded-full bg-primary text-primary-foreground transition-opacity hover:bg-primary/90 md:opacity-0 md:group-hover:opacity-100"
                 >
-                  سجل الآن
+                  <Link to={`/workshop/${w.slug}`}>التفاصيل</Link>
                 </Button>
               </div>
             </div>

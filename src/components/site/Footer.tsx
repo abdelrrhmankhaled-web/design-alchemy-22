@@ -1,26 +1,42 @@
 import { Facebook, Instagram, Linkedin, Youtube } from "lucide-react";
+import { Link } from "react-router-dom";
 import logo from "@/assets/logo.png";
 
 const COLUMNS = [
   {
     title: "الأكاديمية",
-    links: ["عن 3LEMNY", "المدربين", "الشهادات", "تواصل معنا"],
+    links: [
+      { label: "عن 3LEMNY", href: "/contact" },
+      { label: "المدربين", href: "/instructors" },
+      { label: "الشهادات", href: "/courses" },
+      { label: "تواصل معنا", href: "/contact" },
+    ],
   },
   {
     title: "تعلّم",
-    links: ["كل الدورات", "المسارات المهنية", "الورش المباشرة", "اختبار تحديد المستوى"],
+    links: [
+      { label: "كل الدورات", href: "/courses" },
+      { label: "المسارات المهنية", href: "/paths" },
+      { label: "الورش المباشرة", href: "/workshops" },
+      { label: "اختبار تحديد المستوى", href: "/assessment" },
+    ],
   },
   {
     title: "مساعدة",
-    links: ["الأسئلة الشائعة", "سياسة الاسترداد", "الشروط والأحكام", "سياسة الخصوصية"],
+    links: [
+      { label: "الأسئلة الشائعة", href: "/contact" },
+      { label: "سياسة الاسترداد", href: "/contact" },
+      { label: "الشروط والأحكام", href: "/auth" },
+      { label: "سياسة الخصوصية", href: "/auth" },
+    ],
   },
 ];
 
 const SOCIALS = [
-  { icon: Facebook, label: "Facebook" },
-  { icon: Instagram, label: "Instagram" },
-  { icon: Youtube, label: "YouTube" },
-  { icon: Linkedin, label: "LinkedIn" },
+  { icon: Facebook, label: "Facebook", href: "https://www.facebook.com/" },
+  { icon: Instagram, label: "Instagram", href: "https://www.instagram.com/" },
+  { icon: Youtube, label: "YouTube", href: "https://www.youtube.com/" },
+  { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/" },
 ];
 
 export const Footer = () => {
@@ -30,18 +46,20 @@ export const Footer = () => {
         <div className="grid gap-10 md:grid-cols-[1.4fr_repeat(3,1fr)]">
           {/* Brand */}
           <div className="space-y-4">
-            <a href="/" className="flex items-center">
+            <Link to="/" className="flex items-center">
               <img src={logo} alt="3LEMNY ACADEMY" className="h-12 sm:h-14 md:h-16 lg:h-20 w-auto object-contain" />
-            </a>
+            </Link>
             <p className="max-w-xs text-sm text-muted-foreground">
               المنصة الأولى للتعلم المهني باللغة العربية — كورسات عملية ومسارات مصممة لسوق العمل.
             </p>
             <div className="flex items-center gap-2">
-              {SOCIALS.map(({ icon: Icon, label }) => (
+              {SOCIALS.map(({ icon: Icon, label, href }) => (
                 <a
                   key={label}
-                  href="#"
+                  href={href}
                   aria-label={label}
+                  target="_blank"
+                  rel="noreferrer"
                   className="flex h-9 w-9 items-center justify-center rounded-full border border-border bg-secondary/40 text-muted-foreground transition-colors hover:border-primary/50 hover:text-primary"
                 >
                   <Icon className="h-4 w-4" />
@@ -56,13 +74,13 @@ export const Footer = () => {
               <div className="text-sm font-bold">{col.title}</div>
               <ul className="space-y-2">
                 {col.links.map((link) => (
-                  <li key={link}>
-                    <a
-                      href="#"
+                  <li key={link.label}>
+                    <Link
+                      to={link.href}
                       className="text-sm text-muted-foreground transition-colors hover:text-primary"
                     >
-                      {link}
-                    </a>
+                      {link.label}
+                    </Link>
                   </li>
                 ))}
               </ul>

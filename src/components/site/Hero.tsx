@@ -1,4 +1,5 @@
 import { Check, GraduationCap, Sparkles, Star } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { CourseProgressCard } from "./CourseProgressCard";
 import { FloatingBadge } from "./FloatingBadge";
@@ -58,18 +59,22 @@ export const Hero = () => {
           {/* CTAs */}
           <div className="flex flex-wrap items-center gap-3 pt-2">
             <Button
+              asChild
               size="lg"
               className="gap-2 rounded-full bg-primary px-7 text-primary-foreground shadow-glow transition-transform hover:scale-105 hover:bg-primary/90 animate-pulse-glow"
             >
-              <GraduationCap className="h-5 w-5" />
-              ابدأ التعلم
+              <Link to="/assessment">
+                <GraduationCap className="h-5 w-5" />
+                ابدأ التعلم
+              </Link>
             </Button>
             <Button
+              asChild
               size="lg"
               variant="outline"
               className="rounded-full border-border bg-transparent px-7 hover:bg-secondary"
             >
-              تصفح الدورات
+              <Link to="/courses">تصفح الدورات</Link>
             </Button>
           </div>
 

@@ -10,11 +10,19 @@ import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable";
 import { useAuth } from "@/hooks/useAuth";
+import logo from "@/assets/logo.png";
 
 const signUpSchema = z.object({
   displayName: z.string().min(2, "الاسم قصير جدًا").max(60, "الاسم طويل جدًا"),
   email: z.string().email("بريد إلكتروني غير صحيح"),
-  password: z.string().min(6, "كلمة السر 6 أحرف على الأقل").max(72, "كلمة السر طويلة جدًا"),
+  password: z
+    .string()
+    .min(8, "كلمة السر 8 أحرف على الأقل")
+    .max(72, "كلمة السر طويلة جدًا")
+    .regex(/[a-z]/, "أضف حرفًا صغيرًا واحدًا على الأقل")
+    .regex(/[A-Z]/, "أضف حرفًا كبيرًا واحدًا على الأقل")
+    .regex(/\d/, "أضف رقمًا واحدًا على الأقل")
+    .regex(/[^A-Za-z0-9]/, "أضف رمزًا مثل ! أو #"),
 });
 const signInSchema = z.object({
   email: z.string().email("بريد إلكتروني غير صحيح"),
@@ -30,6 +38,14 @@ const GoogleIcon = () => (
   </svg>
 );
 
+const getAuthErrorMessage = (error: { code?: string; message?: string }) => {
+  if (error.code === "email_not_confirmed") return "حسابك اتعمل، لكن لازم تفعّل البريد الإلكتروني أولًا.";
+  if (error.code === "invalid_credentials") return "البريد الإلكتروني أو كلمة السر غير صحيحة.";
+  if (error.message?.toLowerCase().includes("weak")) return "كلمة السر ضعيفة. استخدم 8 أحرف على الأقل مع حروف وأرقام ورمز.";
+  if (error.message?.toLowerCase().includes("already")) return "هذا الحساب موجود مسبقًا.";
+  return error.message || "حدث خطأ غير متوقع. حاول مرة أخرى.";
+};
+
 const Auth = () => {
   const [params] = useSearchParams();
   const navigate = useNavigate();
@@ -37,6 +53,7 @@ const Auth = () => {
   const initialMode = params.get("mode") === "signup" ? "signup" : "signin";
   const [tab, setTab] = useState<"signin" | "signup">(initialMode);
   const [busy, setBusy] = useState(false);
+  const [pendingEmail, setPendingEmail] = useState("");
 
   useEffect(() => {
     document.title = "تسجيل الدخول | 3lemny Academy";
@@ -59,7 +76,7 @@ const Auth = () => {
       return;
     }
     setBusy(true);
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email: parsed.data.email,
       password: parsed.data.password,
       options: {
@@ -69,10 +86,16 @@ const Auth = () => {
     });
     setBusy(false);
     if (error) {
-      toast.error(error.message.includes("already") ? "هذا الحساب موجود مسبقًا" : error.message);
+      toast.error(getAuthErrorMessage(error));
       return;
     }
-    toast.success("تم إنشاء الحساب! تحقق من بريدك للتفعيل.");
+    if (!data.session) {
+      setPendingEmail(parsed.data.email);
+      toast.success("تم إنشاء الحساب! تحقق من بريدك واضغط رابط التفعيل قبل تسجيل الدخول.");
+    } else {
+      toast.success("تم إنشاء الحساب بنجاح!");
+      navigate("/dashboard");
+    }
     setTab("signin");
   };
 
@@ -94,11 +117,28 @@ const Auth = () => {
     });
     setBusy(false);
     if (error) {
-      toast.error("بيانات الدخول غير صحيحة");
+      if (error.code === "email_not_confirmed") setPendingEmail(parsed.data.email);
+      toast.error(getAuthErrorMessage(error));
       return;
     }
     toast.success("أهلاً بعودتك!");
     navigate("/dashboard");
+  };
+
+  const resendConfirmation = async () => {
+    if (!pendingEmail) return;
+    setBusy(true);
+    const { error } = await supabase.auth.resend({
+      type: "signup",
+      email: pendingEmail,
+      options: { emailRedirectTo: `${window.location.origin}/dashboard` },
+    });
+    setBusy(false);
+    if (error) {
+      toast.error(getAuthErrorMessage(error));
+      return;
+    }
+    toast.success("تم إرسال رابط التفعيل مرة أخرى.");
   };
 
   const handleGoogle = async () => {
@@ -119,10 +159,7 @@ const Auth = () => {
     <main className="flex min-h-screen items-center justify-center bg-background px-4 py-12 font-arabic" dir="rtl">
       <div className="w-full max-w-md">
         <Link to="/" className="mb-8 flex items-center justify-center gap-2 font-bold">
-          <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-text text-primary-foreground shadow-glow">
-            <GraduationCap className="h-5 w-5" />
-          </span>
-          <span className="text-lg">3LEMNY ACADEMY</span>
+          <img src={logo} alt="3LEMNY ACADEMY" className="h-20 w-auto object-contain" />
         </Link>
 
         <div className="rounded-2xl border border-border bg-card p-6 shadow-xl md:p-8">
@@ -164,6 +201,20 @@ const Auth = () => {
                   {busy ? <Loader2 className="h-4 w-4 animate-spin" /> : "تسجيل الدخول"}
                 </Button>
               </form>
+              {pendingEmail && (
+                <div className="rounded-xl border border-primary/30 bg-primary/10 p-3 text-sm leading-6">
+                  <p>في انتظار تفعيل البريد: <span className="font-semibold">{pendingEmail}</span></p>
+                  <Button
+                    type="button"
+                    variant="link"
+                    className="h-auto p-0 text-primary"
+                    disabled={busy}
+                    onClick={resendConfirmation}
+                  >
+                    إعادة إرسال رابط التفعيل
+                  </Button>
+                </div>
+              )}
             </TabsContent>
 
             <TabsContent value="signup" className="mt-6 space-y-4">
@@ -198,8 +249,11 @@ const Auth = () => {
                   <Label htmlFor="pw-up">كلمة السر</Label>
                   <div className="relative">
                     <Lock className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                    <Input id="pw-up" name="password" type="password" required minLength={6} className="pe-10 text-right" placeholder="6 أحرف على الأقل" />
+                    <Input id="pw-up" name="password" type="password" required minLength={8} className="pe-10 text-right" placeholder="مثال: Learn#2026" />
                   </div>
+                  <p className="text-xs leading-5 text-muted-foreground">
+                    استخدم 8 أحرف على الأقل مع حرف كبير، حرف صغير، رقم، ورمز.
+                  </p>
                 </div>
                 <Button type="submit" className="w-full bg-primary text-primary-foreground hover:bg-primary/90" disabled={busy}>
                   {busy ? <Loader2 className="h-4 w-4 animate-spin" /> : "إنشاء حساب"}

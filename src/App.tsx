@@ -12,6 +12,7 @@ import Dashboard from "./pages/Dashboard.tsx";
 import CoursesPage from "./pages/CoursesPage.tsx";
 import PathsPage from "./pages/PathsPage.tsx";
 import WorkshopsPage from "./pages/WorkshopsPage.tsx";
+import WorkshopDetailPage from "./pages/WorkshopDetailPage.tsx";
 import InstructorsPage from "./pages/InstructorsPage.tsx";
 import BlogPage from "./pages/BlogPage.tsx";
 import ContactPage from "./pages/ContactPage.tsx";
@@ -36,6 +37,7 @@ const App = () => (
               <Route path="/courses" element={<CoursesPage />} />
               <Route path="/paths" element={<PathsPage />} />
               <Route path="/workshops" element={<WorkshopsPage />} />
+              <Route path="/workshop/:slug" element={<WorkshopDetailPage />} />
               <Route path="/instructors" element={<InstructorsPage />} />
               <Route path="/blog" element={<BlogPage />} />
               <Route path="/contact" element={<ContactPage />} />

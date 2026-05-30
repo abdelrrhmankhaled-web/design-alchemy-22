@@ -4,10 +4,15 @@ import { Clock, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { COURSES, CATEGORIES, CATEGORY_FALLBACK_IMAGES } from "@/data/courses";
 
-export const Courses = () => {
+type CoursesProps = {
+  compactHome?: boolean;
+};
+
+export const Courses = ({ compactHome = false }: CoursesProps) => {
   const [filter, setFilter] = useState("all");
 
   const filtered = filter === "all" ? COURSES : COURSES.filter((c) => c.categoryKey === filter);
+  const visibleCourses = compactHome ? filtered.slice(0, 6) : filtered;
 
   return (
     <section id="courses" className="container py-16 md:py-20">
@@ -15,6 +20,11 @@ export const Courses = () => {
         <div className="space-y-2">
           <span className="text-sm font-medium text-primary">الدورات</span>
           <h2 className="text-3xl font-bold leading-tight md:text-4xl">دورات تنقلك لسوق العمل</h2>
+          {compactHome && (
+            <p className="max-w-2xl text-sm leading-7 text-muted-foreground">
+              اختيارات بداية مركزة في اللغات، المحتوى، التصميم، التسويق، والمهارات الطبية.
+            </p>
+          )}
         </div>
         <Button asChild variant="outline" className="rounded-full border-border hover:bg-secondary">
           <Link to="/courses">استعرض كل الدورات</Link>
@@ -38,7 +48,7 @@ export const Courses = () => {
       </div>
 
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {filtered.map((course) => (
+        {visibleCourses.map((course) => (
           <article
             key={course.slug}
             className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-card transition-all hover:-translate-y-1 hover:border-primary/40 hover:shadow-glow"
@@ -49,6 +59,7 @@ export const Courses = () => {
                   src={course.image || CATEGORY_FALLBACK_IMAGES[course.categoryKey]}
                   alt={course.imageAlt || course.title}
                   loading="lazy"
+                  decoding="async"
                   className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-background/20 to-background/10" />
@@ -76,12 +87,9 @@ export const Courses = () => {
 
                 <div className="mt-auto flex items-center justify-between border-t border-border/60 pt-3">
                   <span className="text-base font-bold text-primary">${course.price}</span>
-                  <Button
-                    size="sm"
-                    className="rounded-full bg-primary text-primary-foreground hover:bg-primary/90"
-                  >
+                  <span className="inline-flex h-9 items-center justify-center rounded-full bg-primary px-3 text-sm font-medium text-primary-foreground hover:bg-primary/90">
                     سجل الآن
-                  </Button>
+                  </span>
                 </div>
               </div>
             </Link>
